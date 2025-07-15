@@ -1,0 +1,23 @@
+---
+ - name: Install package on hosts
+   hosts: servers
+   vars:
+   gather_facts: True
+   become: True
+   tasks:
+    - name: Ensure the package manager cache is up to date
+      ansible.builtin.package:
+        update_cache: yes
+        cache_valid_time: 3600  # Cache is valid for 1 hour
+      
+    - name: Installing package on RedHat/CentOS
+      ansible.builtin.yum:
+        name: httpd
+        state: present
+      when: ansible_facts['os_family'] == 'Fedora' or ansible_facts['os_family'] == 'RedHat'
+    
+    - name: Installing package on Debian/Ubuntu
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+      when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Ubuntu'

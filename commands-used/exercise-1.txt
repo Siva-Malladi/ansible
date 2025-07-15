@@ -1,0 +1,17 @@
+=========================================================
+Exercise-1:
+--------------
+Creating a file using 'file' module
+Copying a file using 'copy' module
+Modifying a line in a file using 'lineinfile' module
+Verifying the result using 'shell' module
+=========================================================
+
+3  cat /root/hosts
+4  cat /root/configfile.cfg
+5  ansible servers -i /root/hosts -m file -a 'path=/opt/deployment state=directory'    
+6  ansible servers -i /root/hosts -m copy -a 'src=/root/configfile.cfg dest=/opt/deployment'
+7  ansible servers -i /root/hosts -m lineinfile -a "path=/opt/deployment/configfile.cfg regexp='^var1' line='var1=111111'"
+8  ansible servers -i /root/hosts -m shell -a 'cat /opt/deployment/configfile.cfg'
+
+=========================================================

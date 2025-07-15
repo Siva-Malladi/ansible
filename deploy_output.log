@@ -1,0 +1,70 @@
+controlplane:~$ ansible-playbook -i /root/hosts deploy.yml 
+
+PLAY [Start of Deployer playbook] ***************************************************************************************************************
+
+TASK [Gathering Facts] **************************************************************************************************************************
+ok: [node01]
+ok: [controlplane]
+
+TASK [Copy deploy.tar.gz over at 20250713T073045] ***********************************************************************************************
+ok: [node01]
+ok: [controlplane]
+
+TASK [Verify the file is copied] ****************************************************************************************************************
+changed: [node01]
+changed: [controlplane]
+
+TASK [Display the result] ***********************************************************************************************************************
+ok: [controlplane] => {
+    "result.stdout_lines": [
+        "-rw-r--r-- 1 root root 213 Jul 13 07:28 /opt/deploy.tar.gz"
+    ]
+}
+ok: [node01] => {
+    "result.stdout_lines": [
+        "-rw-r--r-- 1 root root 213 Jul 13 07:28 /opt/deploy.tar.gz"
+    ]
+}
+
+TASK [Create directory for us to untar into] ****************************************************************************************************
+ok: [node01]
+ok: [controlplane]
+
+TASK [Untar the deployer] ***********************************************************************************************************************
+changed: [node01]
+changed: [controlplane]
+
+TASK [Make the installer script executable] *****************************************************************************************************
+changed: [node01]
+changed: [controlplane]
+
+TASK [Run the installer and register the output] ************************************************************************************************
+changed: [node01]
+changed: [controlplane]
+
+TASK [Debug and show the variable installer_output] *********************************************************************************************
+ok: [controlplane] => {
+    "installer_output.stdout_lines": [
+        "I would be deploying some stuff.",
+        "I would be deploying some more stuff."
+    ]
+}
+ok: [node01] => {
+    "installer_output.stdout_lines": [
+        "I would be deploying some stuff.",
+        "I would be deploying some more stuff."
+    ]
+}
+
+PLAY RECAP **************************************************************************************************************************************
+controlplane               : ok=9    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node01                     : ok=9    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+controlplane:~$ ansible servers -i /root/hosts -m shell -a 'ls -l /opt/myapp'
+node01 | CHANGED | rc=0 >>
+total 4
+drwxr-xr-x 2 root root 4096 Oct 21  2022 deploy
+controlplane | CHANGED | rc=0 >>
+total 4
+drwxr-xr-x 2 root root 4096 Oct 21  2022 deploy
+controlplane:~$ 

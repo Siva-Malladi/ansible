@@ -1,0 +1,41 @@
+PLAY [Start of Jinja2 template push] *******************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node01]
+ok: [controlplane]
+
+TASK [Copy Jinja2 template file to all hosts] **********************************
+ok: [node01]
+ok: [controlplane]
+
+TASK [Verify the template file is copied] **************************************
+changed: [node01]
+changed: [controlplane]
+
+TASK [Isplay the output of the template copy] **********************************
+ok: [controlplane] => {
+    "output.stdout_lines": [
+        "-rw-r--r-- 1 root root 0 Jul 13 09:49 /root/template.txt"
+    ]
+}
+ok: [node01] => {
+    "output.stdout_lines": [
+        "-rw-r--r-- 1 root root 0 Jul 13 09:49 /root/template.txt"
+    ]
+}
+
+TASK [Display the contents of the template file] *******************************
+changed: [node01]
+changed: [controlplane]
+
+TASK [Show the contents of the template file] **********************************
+ok: [controlplane] => {
+    "template_content.stdout_lines": []
+}
+ok: [node01] => {
+    "template_content.stdout_lines": []
+}
+
+PLAY RECAP *********************************************************************
+controlplane               : ok=6    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+node01                     : ok=6    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

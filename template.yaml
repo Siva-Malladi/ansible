@@ -1,0 +1,35 @@
+---
+ - name: Start of Jinja2 template push
+   hosts: servers
+   vars:
+   gather_facts: True
+   become: False
+   tasks:
+
+     - name: Copy Jinja2 template file to all hosts
+       template:
+         src: /root/template.j2
+         # The source file is a Jinja2 template located at /root/template.j2
+         dest: "/root/template.txt"
+         mode: '0644'
+         owner: root
+         group: root
+          # The destination file will be created at /root/template.txt with specified permissions and ownership
+     - name: Verify the template file is copied
+       shell: ls -l /root/template.txt
+       register: output
+
+     - name: Display the output of the template copy
+       debug: 
+         var: output.stdout_lines
+
+     - name: Display the contents of the template file
+       shell: cat /root/template.txt
+       register: template_content
+
+     - name: Show the contents of the template file
+       debug:
+         var: template_content.stdout_lines
+
+
+    

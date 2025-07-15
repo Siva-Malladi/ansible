@@ -1,0 +1,49 @@
+=========================================================
+Exercise-1:
+--------------
+Creating a file using 'file' module
+Copying a file using 'copy' module
+Modifying a line in a file using 'lineinfile' module
+Verifying the result using 'shell' module
+=========================================================
+
+3  cat /root/hosts
+4  cat /root/configfile.cfg
+5  ansible servers -i /root/hosts -m file -a 'path=/opt/deployment state=directory'    
+6  ansible servers -i /root/hosts -m copy -a 'src=/root/configfile.cfg dest=/opt/deployment'
+7  ansible servers -i /root/hosts -m lineinfile -a "path=/opt/deployment/configfile.cfg regexp='^var1' line='var1=111111'"
+8  ansible servers -i /root/hosts -m shell -a 'cat /opt/deployment/configfile.cfg'
+
+=========================================================
+Exercise-2:
+--------------
+
+Creating an ansible playbook to copy a file in multiple servers
+=========================================================
+
+3  ls
+4  cat /root/hosts 
+5  sha1sum /root/deploy.tar.gz 
+6  vim deploy.yaml
+7  ansible-playbook -i /root/hosts /root/deploy.yaml 
+8  vim deploy.yaml
+9  ansible-playbook -i /root/hosts /root/deploy.yaml 
+10  mv deploy.yaml deploy.yml
+11  ansible-playbook -i /root/hosts /root/deploy.yaml 
+12  ansible-playbook -i /root/hosts /root/deploy.yml
+13  vim deploy.yaml
+14  vim deploy.yml
+15  ansible-playbook -i /root/hosts /root/deploy.yml
+16  vim deploy.yml
+17  ansible-playbook -i /root/hosts /root/deploy.yml
+18  vim deploy.yml
+19  ansible-playbook -i /root/hosts /root/deploy.yml
+20  rm deploy.yml 
+21  vim deploy.yaml
+22  ansible-playbook -i /root/hosts /root/deploy.yml
+23  ansible-playbook -i /root/hosts /root/deploy.yaml
+24  ansible servers -i root/hosts -m shell -a "ls -l /opt/deploy.tar.gz"
+25  ansible servers -i /root/hosts -m shell -a "ls -l /opt/deploy.tar.gz"
+26  history
+
+=========================================================
